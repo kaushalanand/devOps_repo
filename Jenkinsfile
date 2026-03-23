@@ -40,7 +40,15 @@ pipeline {
 
     post {
         success {
-            sh "echo 'Job Successful build - J1 build: B1' | mail -s 'Example Build: J1 - Success' hereiskaushal@gmail.com"
+            sh """
+                curl --request POST \
+                --url https://api.sendgrid.com \
+                --header 'Authorization: Bearer YOUR_API_KEY' \
+                --data 'to=hereiskaushal@gmail.com' \
+                --data 'subject=Build Failed' \
+                --data 'text=Build failed. Check logs at www.check.com' \
+                --data 'from=jenkins@yourdomain.com'
+                """
         }
         failure {
             sh 'npm config list'
