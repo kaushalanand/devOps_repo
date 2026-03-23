@@ -40,18 +40,13 @@ pipeline {
 
     post {
         success {
-            sh 'python3 send_mail.py "Build Failed" "Check logs at www.jenkins.test.com"'
+            echo "Build passed! Sending success email..."
+            sh "python3 send_mail.py 'SUCCESS: J1 Build #B1' 'The build was successful. View details: www.jenkins.test.com'"
         }
         failure {
-            sh 'npm config list'
-            emailext (
-                // to: "${env.RECIPIENT_EMAIL}",
-                to: "hereiskaushal@gmail.com",
-                subject: "FAILED: Job nodeJs development J1",
-                body: """<p>Build Failed. Check console output at: B1</p>
-                         <p>Check the 'Install Dependencies' or 'Run Tests' stages for npm errors.</p>""",
-                mimeType: 'text/html'
-            )
+            sh 'python3 send_mail.py "Build Failed" "Check logs at www.jenkins.test.com"'
+            echo "Build failed! Sending failure email..."
+            sh "python3 send_mail.py 'FAILED: J1 Build #B1 'The build failed. Check logs: www.jenkins.test.com'"
         }
     }
 }
