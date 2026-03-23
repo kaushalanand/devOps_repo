@@ -39,10 +39,25 @@ pipeline {
     }
 
     post {
+        success {
+            emailext (
+                to: "hereiskaushal@gmail.com"
+                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: "Build was successful! View details here: ${env.BUILD_URL}",
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+            )
+        }
         failure {
-            // This time, we print a more useful command to debug
-            sh 'npm config list' 
-            echo "Build Failed. Look for 'npm ERR!' above."
+            sh 'npm config list'
+            emailext (
+                // to: "${env.RECIPIENT_EMAIL}",
+                to: "hereiskaushal@gmail.com"
+                subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
+                body: """<p>Build Failed. Check console output at: <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>
+                         <p>Check the 'Install Dependencies' or 'Run Tests' stages for npm errors.</p>""",
+                mimeType: 'text/html',
+                recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
+            )
         }
     }
 }
