@@ -20,11 +20,15 @@ pipeline {
         }
 
         stage("Install Dependencies") {
-        steps {
-            // --ignore-scripts stops npm from calling build tools/xcode
-            sh 'npm install --ignore-scripts --no-optional'
+            steps {
+                // Clean any potential leftovers first
+                sh 'rm -rf node_modules'
+                
+                // Use --unsafe-perm to allow npm to run scripts as the Jenkins user on Mac
+                // We removed --ignore-scripts so jest-circus can install properly
+                sh 'npm install --unsafe-perm --no-user-config'
+            }
         }
-    }
 
 
         stage("Run Tests") {
