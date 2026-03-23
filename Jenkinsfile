@@ -41,7 +41,7 @@ pipeline {
     post {
         success {
             emailext (
-                to: "hereiskaushal@gmail.com"
+                to: "hereiskaushal@gmail.com",
                 subject: "SUCCESS: Job nodeJs development J1",
                 body: "Build was successful! View details here: B1",
                 recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
