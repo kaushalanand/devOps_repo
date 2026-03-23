@@ -8,11 +8,19 @@ def send_email(subject, body):
     msg['From'] = 'hereiskaushal@gmail.com'
     msg['To'] = 'hereiskaushal@gmail.com'
 
-    # Connect to Gmail SMTP
-    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.login('hereiskaushal@gmail.com', 'umrg vfcg tdii fovp')
-    server.send_message(msg)
-    server.quit()
+    try:
+        # Connect to Gmail SMTP
+        server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
+        # Note: I removed the spaces from your password below
+        server.login('hereiskaushal@gmail.com', 'umrgvfcgtdiifovp')
+        server.send_message(msg)
+        server.quit()
+        print("Successfully sent email!")
+    except Exception as e:
+        print(f"Error: Could not send email. {e}")
 
 if __name__ == "__main__":
-    send_email(sys.argv[1], sys.argv[2])
+    if len(sys.argv) > 2:
+        send_email(sys.argv[1], sys.argv[2])
+    else:
+        print("Missing arguments. Usage: python3 script.py <subject> <body>")
