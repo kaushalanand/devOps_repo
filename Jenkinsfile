@@ -20,11 +20,12 @@ pipeline {
         }
 
         stage("Install Dependencies") {
-            steps {
-                // --unsafe-perm fixes many "gyp" permission errors on macOS
-                sh 'npm install --no-optional --unsafe-perm'
-            }
+        steps {
+            // --ignore-scripts stops npm from calling build tools/xcode
+            sh 'npm install --ignore-scripts --no-optional'
         }
+    }
+
 
         stage("Run Tests") {
             steps {
