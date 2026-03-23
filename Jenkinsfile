@@ -40,9 +40,7 @@ pipeline {
 
     post {
         success {
-            mail to: 'hereiskaushal@gmail.com', from: 'hereiskaushal@gmail.com',
-                subject: "Example Build: J1 - Failed", 
-                body: "Job Successful build - J1 build: B1\n\nView the log at:\n www.test.com\n\nBlue Ocean:\n www.testUrl.com"
+            sh "echo 'Job Successful build - J1 build: B1' | mail -s 'Example Build: J1 - Success' hereiskaushal@gmail.com"
         }
         failure {
             sh 'npm config list'
