@@ -40,11 +40,9 @@ pipeline {
 
     post {
         success {
-            emailext (
-                to: "hereiskaushal@gmail.com",
-                subject: "SUCCESS: Job nodeJs development J1",
-                body: "Build was successful! View details here: B1"
-            )
+            mail to: 'hereiskaushal@gmail.com"', from: 'hereiskaushal@gmail.com"',
+                subject: "Example Build: J1 - Failed", 
+                body: "Job Successful build - J1 build: B1\n\nView the log at:\n www.test.com\n\nBlue Ocean:\n www.testUrl.com"
         }
         failure {
             sh 'npm config list'
