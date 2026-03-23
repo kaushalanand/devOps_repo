@@ -40,18 +40,7 @@ pipeline {
 
     post {
         success {
-            sh """
-            curl --request POST \
-            --url https://api.sendgrid.com/v3/mail/send \
-            --header 'Authorization: Bearer SG.PASTE_YOUR_FULL_KEY_HERE' \
-            --header 'Content-Type: application/json' \
-            --data '{
-                "personalizations": [{"to": [{"email": "hereiskaushal@gmail.com"}]}],
-                "from": {"email": "hereiskaushal@gmail.com"},
-                "subject": "Build Failed",
-                "content":
-            }'
-            """
+            sh 'python3 send_mail.py "Build Failed" "Check logs at www.jenkins.test.com"'
         }
         failure {
             sh 'npm config list'
