@@ -51,7 +51,7 @@ pipeline {
             sh 'npm config list'
             emailext (
                 // to: "${env.RECIPIENT_EMAIL}",
-                to: "hereiskaushal@gmail.com"
+                to: "hereiskaushal@gmail.com",
                 subject: "FAILED: Job nodeJs development J1",
                 body: """<p>Build Failed. Check console output at: B1</p>
                          <p>Check the 'Install Dependencies' or 'Run Tests' stages for npm errors.</p>""",
