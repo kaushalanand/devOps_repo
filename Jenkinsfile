@@ -42,8 +42,8 @@ pipeline {
         success {
             emailext (
                 to: "hereiskaushal@gmail.com"
-                subject: "SUCCESS: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: "Build was successful! View details here: ${env.BUILD_URL}",
+                subject: "SUCCESS: Job nodeJs development J1",
+                body: "Build was successful! View details here: B1",
                 recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
             )
         }
@@ -52,8 +52,8 @@ pipeline {
             emailext (
                 // to: "${env.RECIPIENT_EMAIL}",
                 to: "hereiskaushal@gmail.com"
-                subject: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'",
-                body: """<p>Build Failed. Check console output at: <a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a></p>
+                subject: "FAILED: Job nodeJs development J1",
+                body: """<p>Build Failed. Check console output at: B1</p>
                          <p>Check the 'Install Dependencies' or 'Run Tests' stages for npm errors.</p>""",
                 mimeType: 'text/html',
                 recipientProviders: [[$class: 'DevelopersRecipientProvider'], [$class: 'RequesterRecipientProvider']]
