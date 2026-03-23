@@ -41,14 +41,19 @@ pipeline {
     post {
         success {
             sh """
-                curl --request POST \
-                --url https://api.sendgrid.com \
-                --header 'Authorization: Bearer YOUR_API_KEY' \
-                --data 'to=hereiskaushal@gmail.com' \
-                --data 'subject=Build Failed' \
-                --data 'text=Build failed. Check logs at www.check.com' \
-                --data 'from=jenkins@yourdomain.com'
-                """
+            curl --request POST \\
+            --url https://api.sendgrid.com/v3/mail/send \\
+            --header 'Authorization: Bearer YOUR_ACTUAL_API_KEY' \\
+            --header 'Content-Type: application/json' \\
+            --data '{
+                "personalizations": [{
+                "to": [{"email": "hereiskaushal@gmail.com"}]
+                }],
+                "from": {"email": "jenkins@yourcompany.com"},
+                "subject": "Build Failed",
+                "content": [{"type": "text/plain", "value": "The build failed. Check logs at build URL}]
+            }'
+            """
         }
         failure {
             sh 'npm config list'
